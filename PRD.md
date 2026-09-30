@@ -30,7 +30,7 @@ Numbers to watch, in this order:
 Do not celebrate likes or page visits alone.
 
 ## Version 1: Sign-up page (now)
-Includes: the hero, my story, the four weeks, the finish line, the honest box, who it is for, a one-field email form with format checks and duplicate protection, a thank-you dialog with the WhatsApp link after a successful signup, questions, footer.
+Includes: the hero with Olajide's founder credit, the challenge steps, an honest note that clients are not promised, a one-field email form with format checks and duplicate protection, a thank-you dialog with the WhatsApp link after a successful signup, and footer links to Olajide's portfolio, LinkedIn, and X.
 Does NOT include: results, testimonials, prices, resources, payments, logins.
 
 ## Version 2: Results and offers (after 30 days, only with real content)

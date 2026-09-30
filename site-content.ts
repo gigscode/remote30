@@ -19,6 +19,8 @@ export const siteContent = {
   heroNote: "Free to join. I can't promise clients.",
   heroDetails: ['Show your work clearly', 'Start real conversations'],
   founderPhotoAlt: 'Portrait of Olajide Igbalaye, founder of Remote30',
+  founderCreditLabel: 'Powered by',
+  founderCreditName: 'Olajide Igbalaye',
   challengeLabel: 'The hard part',
   challengeTitle: "Good work doesn't always get noticed.",
   challengeDescription: "You can be good at your craft and still struggle to explain what you do, show the right work, or reach people who might hire you. We'll work on those parts one step at a time.",
@@ -44,8 +46,15 @@ export const siteContent = {
   signupSuccessAction: 'Join the WhatsApp group',
   signupSuccessDismiss: 'Close',
   communityLink: 'https://tinyurl.com/JoinRemote30',
-  footer: 'A free 30-day challenge for Nigerian designers and developers.',
-  footerNote: '30 days of practice.',
+  footer: {
+    copyright: '© 2026 Remote30',
+    linksLabel: 'Social and portfolio links',
+    links: [
+      { href: 'https://jdev-live.vercel.app/', label: 'My Portfolio', icon: null, ariaLabel: 'My Portfolio' },
+      { href: 'https://www.linkedin.com/in/olajide-igbalaye', label: 'LinkedIn', icon: null, ariaLabel: 'LinkedIn' },
+      { href: 'https://x.com/JideLence', label: '@JideLence', icon: 'x', ariaLabel: 'X @JideLence' },
+    ],
+  },
 } as const
 
 export const siteSettings = {

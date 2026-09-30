@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { ArrowRight, Check, Clock3, Globe2, UsersRound, X } from 'lucide-react'
+import { ArrowRight, Check, Globe2, UsersRound, X } from 'lucide-react'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { siteContent } from '@/site-content'
@@ -80,12 +80,16 @@ export default function Page() {
         <div>
           <h1 className="max-w-3xl text-5xl font-black leading-[0.98] tracking-[-0.07em] text-[#082d70] sm:text-7xl lg:text-[5.8rem]">{siteContent.heroTitle}<span className="block bg-gradient-to-r from-[#08c9d5] to-[#087edb] bg-clip-text text-transparent">{siteContent.heroAccent}</span></h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-[#4b6d98]">{siteContent.heroDescription}</p>
-          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"><a href="#join" className="inline-flex items-center justify-center rounded-full bg-[#083e91] px-7 py-4 font-bold text-white shadow-[0_12px_24px_rgba(8,62,145,0.2)] transition-all hover:-translate-y-1 hover:bg-[#0a4fac]">{siteContent.heroAction} <ArrowRight className="ml-2 size-5" /></a><span className="text-sm font-semibold text-[#7390b5]">{siteContent.heroNote}</span></div>
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"><a href="#join" className="inline-flex items-center justify-center rounded-full bg-[#083e91] px-7 py-4 font-bold text-white shadow-[0_12px_24px_rgba(8,62,145,0.2)] transition-all hover:-translate-y-1 hover:bg-[#0a4fac]">{siteContent.heroAction} <ArrowRight className="ml-2 size-5" /></a><span className="text-center text-sm font-semibold text-[#7390b5] sm:text-left">{siteContent.heroNote}</span></div>
           <div className="mt-12 flex flex-wrap gap-6 text-sm font-semibold text-[#55769e]"><span className="flex items-center gap-2"><Globe2 className="size-5 text-[#05bfd1]" /> {siteContent.heroDetails[0]}</span><span className="flex items-center gap-2"><UsersRound className="size-5 text-[#05bfd1]" /> {siteContent.heroDetails[1]}</span></div>
         </div>
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
           <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-[2rem] border-[8px] border-[#07337d] bg-[#07337d] shadow-[0_25px_70px_rgba(5,56,132,0.25)] lg:max-w-md">
             <Image src="/headshot.png" alt={siteContent.founderPhotoAlt} width={1254} height={1254} priority sizes="(max-width: 1024px) 100vw, 448px" className="aspect-square h-auto w-full object-cover" />
+          </div>
+          <div className="absolute -bottom-5 right-0 rounded-2xl bg-[#0b978d] px-6 py-5 text-white shadow-[0_14px_30px_rgba(8,62,145,0.2)] sm:-right-4 sm:px-8 sm:py-6">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b8fffa]">{siteContent.founderCreditLabel}</p>
+            <p className="mt-1 text-xl font-black sm:text-2xl">{siteContent.founderCreditName}</p>
           </div>
         </div>
       </section>
@@ -119,7 +123,15 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="relative z-10 mx-auto flex max-w-6xl flex-col gap-5 border-t border-[#dbeaf7] px-6 py-8 text-sm text-[#6c87aa] sm:flex-row sm:items-center sm:justify-between lg:px-10"><p>© 2026 {siteContent.brand}. {siteContent.footer}</p><div className="flex items-center gap-2"><Clock3 className="size-4" /> {siteContent.footerNote}</div></footer>
+      <footer className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-5 border-t border-[#dbeaf7] px-6 py-8 text-center text-sm text-[#6c87aa] sm:flex-row sm:justify-between sm:text-left lg:px-10">
+        <p>{siteContent.footer.copyright}</p>
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3" aria-label={siteContent.footer.linksLabel}>
+          {siteContent.footer.links.map((link) => <a key={link.href} href={link.href} aria-label={link.ariaLabel} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 font-bold text-[#356195] underline-offset-4 transition-colors hover:text-[#087edb] hover:underline">
+            {link.icon === 'x' && <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4 fill-current"><path d="M18.901 1.153h3.68l-8.04 9.19 9.46 12.504h-7.407l-5.8-7.584-6.637 7.584H.474l8.6-9.83L0 1.153h7.594l5.244 6.932zm-1.291 19.493h2.039L6.25 3.238H4.062z" /></svg>}
+            {link.label}
+          </a>)}
+        </nav>
+      </footer>
     </main>
   )
 }

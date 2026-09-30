@@ -11,7 +11,7 @@ A free 30-day challenge for Nigerian designers and developers who want internati
 The site does not send email. It cannot check whether an inbox is active. The visitor needs to enter the right address themselves.
 
 ## Where things are
-- All the words and settings: site-content.ts (start date, spots, WhatsApp link, colours, every sentence)
+- All the words and settings: site-content.ts (start date, spots, WhatsApp link, colours, every sentence, founder credit, footer links)
 - The plan: PRD.md
 - Rules for the AI helper: AGENTS.md
 - The sign-up list: in Supabase, in a table called `remote30_waitlist`. Only you can read it.
