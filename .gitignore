@@ -46,3 +46,4 @@ Thumbs.db
 # Hosting / deployment folders
 .vercel/
 .netlify/
+.vercel

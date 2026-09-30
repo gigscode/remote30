@@ -162,3 +162,48 @@
     font-family: 'Nunito', ui-rounded, 'Arial Rounded MT Bold', Arial, sans-serif;
   }
 }
+
+/* ── Animations ─────────────────────────────────────────── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Hero entrance — runs once on mount */
+.hero-eyebrow  { animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-title    { animation: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) 80ms  both; }
+.hero-body     { animation: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) 180ms both; }
+.hero-cta      { animation: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) 280ms both; }
+.hero-card     { animation: fade-in 0.7s ease 350ms both; }
+
+/* Scroll-reveal — JS adds .visible when element enters viewport */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 160ms; }
+.reveal-delay-3 { transition-delay: 240ms; }
+
+/* Mobile menu drop-in */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+.mobile-menu {
+  animation: slide-down 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: top center;
+}
+

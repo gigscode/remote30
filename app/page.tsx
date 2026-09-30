@@ -30,7 +30,17 @@ export default function Page() {
       const { error } = await createClient().from('remote30_waitlist').insert({ email: normalizedEmail })
 
       if (error) {
-        setSubmitError(error.code === '23505' ? siteContent.emailDuplicateError : siteContent.emailSubmitError)
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Waitlist insert failed:', { code: error.code, message: error.message, details: error.details, hint: error.hint })
+        }
+
+        if (error.code === '23505') {
+          setSubmitError(siteContent.emailDuplicateError)
+        } else if (error.code === '23502' || error.code === '23514' || error.code === 'PGRST204' || error.code === 'PGRST205') {
+          setSubmitError(siteContent.emailSchemaError)
+        } else {
+          setSubmitError(siteContent.emailSubmitError)
+        }
         return
       }
 

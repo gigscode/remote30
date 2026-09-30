@@ -37,6 +37,7 @@ export const siteContent = {
   emailLabel: 'Email address',
   emailPlaceholder: 'you@example.com',
   emailDuplicateError: 'That email is already on the list.',
+  emailSchemaError: 'The signup list needs an update. Please try again later.',
   emailSubmitError: "I couldn't save your email. Please try again.",
   emailSubmitLabel: 'Add my email',
   emailSubmittingLabel: 'Adding you...',
