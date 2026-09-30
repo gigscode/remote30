@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Remote30 — Your First 3 International Clients',
+  description: 'A 30-day field challenge for remote freelancers ready to land their first international paying clients.',
   generator: 'v0.app',
   icons: {
     icon: [
