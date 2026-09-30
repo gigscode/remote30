@@ -159,6 +159,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Nunito', ui-rounded, 'Arial Rounded MT Bold', Arial, sans-serif;
   }
 }
