@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next'
+import { siteContent } from '@/site-content'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Remote30 — Build Your Path to International Work',
-  description: 'A free 30-day challenge for Nigerian designers and developers who want international clients.',
+  title: siteContent.pageTitle,
+  description: siteContent.pageDescription,
 }
 
 export const viewport: Viewport = {

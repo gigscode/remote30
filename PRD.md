@@ -30,7 +30,7 @@ Numbers to watch, in this order:
 Do not celebrate likes or page visits alone.
 
 ## Version 1: Sign-up page (now)
-Includes: the hero, my story, the four weeks, the finish line, the honest box, who it is for, the sign-up form, the thank-you screen with the group link, questions, footer.
+Includes: the hero, my story, the four weeks, the finish line, the honest box, who it is for, a one-field email form with format checks and duplicate protection, a thank-you dialog with the WhatsApp link after a successful signup, questions, footer.
 Does NOT include: results, testimonials, prices, resources, payments, logins.
 
 ## Version 2: Results and offers (after 30 days, only with real content)
@@ -45,6 +45,7 @@ Bright blue and cyan, white text, a heavy rounded font, the "30" in cyan, a tilt
 
 ## Privacy
 The sign-up list is private. It is used only to run Remote30. It is never sold or shown on the site.
+The site does not send email, so it cannot confirm whether an inbox is active. It checks the address format and prevents duplicate entries.
 
 ## Open questions
 - What exactly is in the paid done-for-you package, and how many days does it take?
