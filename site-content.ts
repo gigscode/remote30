@@ -12,9 +12,10 @@ export const siteContent = {
     { number: '02', title: 'Connect', copy: 'Build a warm, international network without awkward pitching.' },
     { number: '03', title: 'Convert', copy: 'Turn good conversations into paid project opportunities.' },
   ],
-  signupLabel: 'Join the first cohort',
+  signupLabel: 'Cohort 01 · Starts October 1, 2026',
   signupTitle: 'Ready to make the next 30 days count?',
-  signupDescription: 'Leave your email and we’ll send the challenge details when the doors open.',
+  signupDescription: 'Join the Remote30 community and get the challenge details before the cohort begins.',
+  communityLink: 'https://tinyurl.com/JoinRemote30',
   footer: 'Make your work travel.',
 } as const
 
