@@ -2,15 +2,30 @@
 
 import { FormEvent, useState } from 'react'
 import { ArrowRight, Check, Clock3, Globe2, Link, Menu, UsersRound, X } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
 export default function Page() {
   const [email, setEmail] = useState('')
   const [joined, setJoined] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (!email.trim()) return
+    const normalizedEmail = email.trim().toLowerCase()
+    if (!normalizedEmail || submitting) return
+
+    setSubmitting(true)
+    setSubmitError('')
+    const { error } = await createClient().from('remote30_waitlist').insert({ email: normalizedEmail })
+    setSubmitting(false)
+
+    if (error) {
+      setSubmitError(error.code === '23505' ? 'That email is already on the list.' : 'We could not save your email. Please try again.')
+      return
+    }
+
     setJoined(true)
   }
 
@@ -49,7 +64,7 @@ export default function Page() {
 
       <section id="challenge" className="relative z-10 border-y border-[#e4edf6] bg-white px-6 py-24 lg:px-10 lg:py-28"><div className="mx-auto max-w-[1080px]"><div className="mb-14 max-w-2xl"><p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#00aec8]">The challenge</p><h2 className="mt-5 text-4xl font-bold leading-[1.08] tracking-[-0.045em] text-[#0c3476] sm:text-5xl">A clearer path to international work.</h2><p className="mt-5 max-w-xl text-base leading-7 text-[#6885ad]">Remote30 gives you a practical sequence for turning your expertise into better conversations and paid projects.</p></div><div id="how-it-works" className="grid gap-4 md:grid-cols-3"><Step number="01" title="Position" copy="Make your value clear to the clients you want to work with." /><Step number="02" title="Connect" copy="Build a warm, international network without awkward pitching." /><Step number="03" title="Convert" copy="Turn good conversations into your first three paid projects." /></div></div></section>
 
-      <section id="join" className="relative z-10 mx-auto max-w-6xl px-6 py-20 lg:px-10"><div className="overflow-hidden rounded-[2rem] bg-[#07337d] px-7 py-10 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16 lg:py-14"><div className="max-w-xl"><p className="text-sm font-bold uppercase tracking-[0.2em] text-[#42e5e4]">Join the first cohort</p><h2 className="mt-4 text-4xl font-black tracking-[-0.06em] sm:text-5xl">Ready to make the next 30 days count?</h2><p className="mt-4 text-blue-100">Leave your email and we&apos;ll send the challenge details when the doors open.</p></div>{joined ? <div className="mt-8 flex items-center gap-3 rounded-2xl bg-white/10 p-5 font-bold lg:mt-0"><span className="flex size-9 items-center justify-center rounded-full bg-[#16d7d8] text-[#07337d]"><Check className="size-5" /></span>You&apos;re on the list.</div> : <form onSubmit={handleSubmit} className="mt-8 flex w-full max-w-md flex-col gap-3 lg:mt-0" aria-label="Join the Remote30 challenge"><label htmlFor="email" className="sr-only">Email address</label><input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" className="rounded-full border border-white/20 bg-white px-5 py-4 text-[#082d70] outline-none placeholder:text-[#89a1be] focus:ring-4 focus:ring-[#42e5e4]/40" /><button type="submit" className="rounded-full bg-[#16d7d8] px-6 py-4 font-black text-[#07337d] transition-transform hover:-translate-y-0.5">Join the challenge <ArrowRight className="ml-2 inline size-5" /></button></form>}</div></section>
+      <section id="join" className="relative z-10 mx-auto max-w-6xl px-6 py-20 lg:px-10"><div className="overflow-hidden rounded-[2rem] bg-[#07337d] px-7 py-10 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16 lg:py-14"><div className="max-w-xl"><p className="text-sm font-bold uppercase tracking-[0.2em] text-[#42e5e4]">Join the first cohort</p><h2 className="mt-4 text-4xl font-black tracking-[-0.06em] sm:text-5xl">Ready to make the next 30 days count?</h2><p className="mt-4 text-blue-100">Leave your email and we&apos;ll send the challenge details when the doors open.</p></div>{joined ? <div className="mt-8 flex items-center gap-3 rounded-2xl bg-white/10 p-5 font-bold lg:mt-0"><span className="flex size-9 items-center justify-center rounded-full bg-[#16d7d8] text-[#07337d]"><Check className="size-5" /></span>You&apos;re on the list.</div> : <form onSubmit={handleSubmit} className="mt-8 flex w-full max-w-md flex-col gap-3 lg:mt-0" aria-label="Join the Remote30 challenge"><label htmlFor="email" className="sr-only">Email address</label><input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" aria-invalid={Boolean(submitError)} className="rounded-full border border-white/20 bg-white px-5 py-4 text-[#082d70] outline-none placeholder:text-[#89a1be] focus:ring-4 focus:ring-[#42e5e4]/40" /><button type="submit" disabled={submitting} className="rounded-full bg-[#16d7d8] px-6 py-4 font-black text-[#07337d] transition-transform hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70">{submitting ? 'Joining…' : 'Join the challenge'} {!submitting && <ArrowRight className="ml-2 inline size-5" />}</button>{submitError && <p role="alert" className="text-sm font-semibold text-[#b8f6f5]">{submitError}</p>}</form>}</div></section>
 
       <footer id="about" className="relative z-10 mx-auto flex max-w-6xl flex-col gap-5 border-t border-[#dbeaf7] px-6 py-8 text-sm text-[#6c87aa] sm:flex-row sm:items-center sm:justify-between lg:px-10"><p>© 2025 Remote30. Make your work travel.</p><div className="flex items-center gap-4"><span className="flex items-center gap-2"><Clock3 className="size-4" /> 30 days. Real momentum.</span><a href="https://www.linkedin.com" target="_blank" rel="noreferrer" aria-label="Remote30 on LinkedIn" className="rounded-full p-2 hover:bg-[#e7f5ff]"><Link className="size-5" /></a></div></footer>
     </main>
