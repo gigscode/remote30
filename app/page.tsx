@@ -3,8 +3,6 @@
 import { FormEvent, useState } from 'react'
 import { ArrowRight, Check, Clock3, Globe2, Link, Menu, UsersRound, X } from 'lucide-react'
 
-const sourceImage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/elier-RJTwjycGyxga0LKSmK6eP52K86Uptb.png'
-
 export default function Page() {
   const [email, setEmail] = useState('')
   const [joined, setJoined] = useState(false)
@@ -18,7 +16,6 @@ export default function Page() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#f7fbff] text-[#082c66]">
-      <div className="pointer-events-none fixed inset-0 -z-0 opacity-[0.035]" style={{ backgroundImage: `url(${sourceImage})`, backgroundPosition: 'center', backgroundSize: 'cover' }} aria-hidden="true" />
       <header className="relative z-20 mx-auto flex max-w-6xl items-center justify-between px-6 py-6 lg:px-10">
         <a href="#top" className="flex items-center gap-2" aria-label="Remote30 home">
           <span className="text-2xl font-black tracking-[-0.08em] text-[#072e75]">remote</span>
@@ -50,7 +47,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="challenge" className="relative z-10 border-y border-[#dbeaf7] bg-white/75 px-6 py-20 lg:px-10"><div className="mx-auto max-w-6xl"><div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end"><div><p className="text-sm font-bold uppercase tracking-[0.2em] text-[#09a9c8]">The challenge</p><h2 className="mt-4 max-w-lg text-4xl font-black leading-tight tracking-[-0.05em] text-[#082d70] sm:text-5xl">International work shouldn&apos;t feel mysterious.</h2></div><p className="max-w-xl text-lg leading-8 text-[#5d789d]">Remote30 turns vague ambition into a simple daily practice: sharpen your offer, find the right people, start better conversations, and make the ask.</p></div><div id="how-it-works" className="mt-14 grid gap-4 md:grid-cols-3"><Step number="01" title="Position" copy="Make your value clear to the clients you want to work with." /><Step number="02" title="Connect" copy="Build a warm, international network without awkward pitching." /><Step number="03" title="Convert" copy="Turn good conversations into your first three paid projects." /></div></div></section>
+      <section id="challenge" className="relative z-10 border-y border-[#e4edf6] bg-white px-6 py-24 lg:px-10 lg:py-28"><div className="mx-auto max-w-[1080px]"><div className="mb-14 max-w-2xl"><p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#00aec8]">The challenge</p><h2 className="mt-5 text-4xl font-bold leading-[1.08] tracking-[-0.045em] text-[#0c3476] sm:text-5xl">A clearer path to international work.</h2><p className="mt-5 max-w-xl text-base leading-7 text-[#6885ad]">Remote30 gives you a practical sequence for turning your expertise into better conversations and paid projects.</p></div><div id="how-it-works" className="grid gap-4 md:grid-cols-3"><Step number="01" title="Position" copy="Make your value clear to the clients you want to work with." /><Step number="02" title="Connect" copy="Build a warm, international network without awkward pitching." /><Step number="03" title="Convert" copy="Turn good conversations into your first three paid projects." /></div></div></section>
 
       <section id="join" className="relative z-10 mx-auto max-w-6xl px-6 py-20 lg:px-10"><div className="overflow-hidden rounded-[2rem] bg-[#07337d] px-7 py-10 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16 lg:py-14"><div className="max-w-xl"><p className="text-sm font-bold uppercase tracking-[0.2em] text-[#42e5e4]">Join the first cohort</p><h2 className="mt-4 text-4xl font-black tracking-[-0.06em] sm:text-5xl">Ready to make the next 30 days count?</h2><p className="mt-4 text-blue-100">Leave your email and we&apos;ll send the challenge details when the doors open.</p></div>{joined ? <div className="mt-8 flex items-center gap-3 rounded-2xl bg-white/10 p-5 font-bold lg:mt-0"><span className="flex size-9 items-center justify-center rounded-full bg-[#16d7d8] text-[#07337d]"><Check className="size-5" /></span>You&apos;re on the list.</div> : <form onSubmit={handleSubmit} className="mt-8 flex w-full max-w-md flex-col gap-3 lg:mt-0" aria-label="Join the Remote30 challenge"><label htmlFor="email" className="sr-only">Email address</label><input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" className="rounded-full border border-white/20 bg-white px-5 py-4 text-[#082d70] outline-none placeholder:text-[#89a1be] focus:ring-4 focus:ring-[#42e5e4]/40" /><button type="submit" className="rounded-full bg-[#16d7d8] px-6 py-4 font-black text-[#07337d] transition-transform hover:-translate-y-0.5">Join the challenge <ArrowRight className="ml-2 inline size-5" /></button></form>}</div></section>
 
@@ -60,10 +57,7 @@ export default function Page() {
 }
 
 function Step({ number, title, copy }: { number: string; title: string; copy: string }) {
-  return <article className="rounded-3xl border border-[#dbeaf7] bg-[#f7fbff] p-7"><span className="text-sm font-black tracking-[0.2em] text-[#08b7ce]">{number}</span><h3 className="mt-8 text-2xl font-black tracking-[-0.04em] text-[#082d70]">{title}</h3><p className="mt-3 leading-7 text-[#6984a8]">{copy}</p></article>
+  return <article className="min-h-[338px] rounded-[28px] border border-[#d5e5f3] bg-[#f8fbff] px-10 py-11 transition-colors hover:bg-[#f3f9ff] md:px-10"><span className="text-[17px] font-bold tracking-[0.2em] text-[#00b5cc]">{number}</span><h3 className="mt-14 text-[32px] font-bold leading-none tracking-[-0.045em] text-[#0c3476]">{title}</h3><p className="mt-7 max-w-[250px] text-[19px] leading-[1.95] text-[#6684ad]">{copy}</p></article>
 }
 
-// Visual reference supplied by the user: Remote30 promotional artwork.
-// The artwork is used subtly as texture in the page background; the landing page intentionally stays lighter and more editorial.
-void sourceImage
 
