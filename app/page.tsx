@@ -1,7 +1,8 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { ArrowRight, Check, Clock3, Globe2, Menu, UsersRound, X } from 'lucide-react'
+import { ArrowRight, Check, Clock3, Globe2, UsersRound, X } from 'lucide-react'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { siteContent } from '@/site-content'
 
@@ -9,7 +10,6 @@ export default function Page() {
   const [email, setEmail] = useState('')
   const [joined, setJoined] = useState(false)
   const [successOpen, setSuccessOpen] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const successDialogRef = useRef<HTMLDialogElement>(null)
@@ -36,7 +36,9 @@ export default function Page() {
 
         if (error.code === '23505') {
           setSubmitError(siteContent.emailDuplicateError)
-        } else if (error.code === '23502' || error.code === '23514' || error.code === 'PGRST204' || error.code === 'PGRST205') {
+        } else if (error.code === '23514' && error.message.includes('remote30_waitlist_email_format')) {
+          setSubmitError(siteContent.emailFormatError)
+        } else if (error.code === '23502' || error.code === 'PGRST204' || error.code === 'PGRST205') {
           setSubmitError(siteContent.emailSchemaError)
         } else {
           setSubmitError(siteContent.emailSubmitError)
@@ -54,7 +56,7 @@ export default function Page() {
   }
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#f7fbff] text-[#082c66]">
+    <main className="min-h-screen overflow-x-clip bg-[#f7fbff] text-[#082c66]">
       {successOpen && <dialog ref={successDialogRef} aria-labelledby="signup-success-title" onKeyDown={(event) => { if (event.key === 'Escape') { event.preventDefault(); successDialogRef.current?.close() } }} onCancel={(event) => { event.preventDefault(); successDialogRef.current?.close() }} onClose={() => setSuccessOpen(false)} onClick={(event) => { if (event.target === event.currentTarget) successDialogRef.current?.close() }} className="m-auto max-h-none w-screen max-w-none border-0 bg-transparent p-4 backdrop:bg-[#062268]/70 backdrop:backdrop-blur-sm">
         <div className="relative mx-auto w-full max-w-md rounded-3xl bg-white p-7 text-[#082c66] shadow-2xl sm:p-9">
           <button type="button" autoFocus aria-label={siteContent.signupSuccessDismiss} onClick={() => successDialogRef.current?.close()} className="absolute right-4 top-4 rounded-full p-2 text-[#55769e] transition-colors hover:bg-[#f3f8ff] hover:text-[#082c66]"><X className="size-5" /></button>
@@ -64,36 +66,42 @@ export default function Page() {
           <a href={siteContent.communityLink} target="_blank" rel="noreferrer" className="mt-7 inline-flex w-full items-center justify-center rounded-full bg-[#083e91] px-3 py-4 font-bold text-white transition-colors hover:bg-[#0a4fac]">{siteContent.signupSuccessAction}</a>
         </div>
       </dialog>}
-      <header className="relative z-20 mx-auto flex max-w-6xl items-center justify-between px-6 py-6 lg:px-10">
-        <a href="#top" className="flex items-center gap-2" aria-label="Remote30 home">
-          <span className="text-2xl font-black tracking-[-0.08em] text-[#072e75]">remote</span>
-          <span className="text-2xl font-black tracking-[-0.08em] text-[#00cdec]">30</span>
+      <header className="sticky top-3 z-20 mx-4 mt-3 flex max-w-6xl items-center justify-between rounded-full border border-[#dcebf7] bg-white/95 px-4 py-3 shadow-[0_10px_30px_rgba(8,62,145,0.12)] backdrop-blur sm:mx-auto sm:px-6 lg:px-8">
+        <a href="#top" className="flex items-center" aria-label="Remote30 home">
+          <span className="text-2xl font-black tracking-normal text-[#072e75]">remote</span><span className="text-2xl font-black tracking-normal text-[#5577a5]">30</span>
         </a>
         <nav className="hidden items-center gap-8 text-sm font-semibold text-[#356195] md:flex" aria-label={siteContent.navigation.ariaLabel}>
           {siteContent.navigation.links.map((link) => <a key={link.href} href={link.href} className="transition-colors hover:text-[#0a7dd8]">{link.label}</a>)}
         </nav>
-        <a href="#join" className="hidden rounded-full bg-[#083e91] px-5 py-3 text-sm font-bold text-white shadow-[0_8px_20px_rgba(8,62,145,0.18)] transition-all hover:-translate-y-0.5 md:block">{siteContent.joinAction} <ArrowRight className="ml-2 inline size-4" /></a>
-        <button type="button" className="rounded-full p-2 md:hidden" aria-expanded={menuOpen} aria-label={menuOpen ? siteContent.navigation.closeMenu : siteContent.navigation.openMenu} onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <X /> : <Menu />}
-        </button>
+        <a href="#join" className="rounded-full bg-[#083e91] px-4 py-3 text-xs font-bold text-white shadow-[0_8px_20px_rgba(8,62,145,0.18)] transition-all hover:-translate-y-0.5 sm:px-5 sm:text-sm">{siteContent.joinAction} <ArrowRight className="ml-1 inline size-4 sm:ml-2" /></a>
       </header>
-      {menuOpen && <nav className="relative z-20 mx-6 flex flex-col gap-2 rounded-2xl border border-[#d5e5f3] bg-white p-5 shadow-lg md:hidden" aria-label={siteContent.navigation.ariaLabel}>{siteContent.navigation.links.map((link) => <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-xl font-black text-[#0c3476] hover:bg-[#f3f8ff]">{link.label}</a>)}<a href="#join" onClick={() => setMenuOpen(false)} className="mt-2 inline-flex min-h-14 items-center justify-center rounded-full bg-[#083e91] px-5 py-4 text-lg font-black text-white">{siteContent.joinAction}</a></nav>}
 
       <section id="top" className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 pb-20 pt-12 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:pb-28 lg:pt-20">
         <div>
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#b9eafa] bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#078bc0] shadow-sm"><span className="size-2 rounded-full bg-[#14d7dc]" /> {siteContent.eyebrow}</div>
           <h1 className="max-w-3xl text-5xl font-black leading-[0.98] tracking-[-0.07em] text-[#082d70] sm:text-7xl lg:text-[5.8rem]">{siteContent.heroTitle}<span className="block bg-gradient-to-r from-[#08c9d5] to-[#087edb] bg-clip-text text-transparent">{siteContent.heroAccent}</span></h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-[#4b6d98]">{siteContent.heroDescription}</p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"><a href="#join" className="inline-flex items-center justify-center rounded-full bg-[#083e91] px-7 py-4 font-bold text-white shadow-[0_12px_24px_rgba(8,62,145,0.2)] transition-all hover:-translate-y-1 hover:bg-[#0a4fac]">{siteContent.heroAction} <ArrowRight className="ml-2 size-5" /></a><span className="text-sm font-semibold text-[#7390b5]">{siteContent.heroNote}</span></div>
           <div className="mt-12 flex flex-wrap gap-6 text-sm font-semibold text-[#55769e]"><span className="flex items-center gap-2"><Globe2 className="size-5 text-[#05bfd1]" /> {siteContent.heroDetails[0]}</span><span className="flex items-center gap-2"><UsersRound className="size-5 text-[#05bfd1]" /> {siteContent.heroDetails[1]}</span></div>
         </div>
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-          <div className="absolute -right-6 -top-8 size-32 rounded-full bg-[#bff6ff] blur-2xl" /><div className="absolute -bottom-8 -left-8 size-44 rounded-full bg-[#d5efff] blur-2xl" />
-          <div className="relative rounded-[2.5rem] bg-gradient-to-br from-[#06459d] to-[#062268] p-3 shadow-[0_25px_70px_rgba(5,56,132,0.25)]"><div className="rounded-[2rem] bg-gradient-to-br from-[#087edb] via-[#0763be] to-[#05215f] p-8 text-white sm:p-10"><div className="flex items-center justify-between text-sm font-bold text-cyan-100"><span>{siteContent.brand.toUpperCase()}</span><span>{siteContent.cardDays}</span></div><div className="mt-24 text-8xl font-black leading-none tracking-[-0.1em] text-white sm:text-9xl">3<span className="text-[#16e0e5]">0</span></div><p className="mt-4 max-w-xs text-2xl font-bold leading-tight">{siteContent.cardHeadline}</p><p className="mt-12 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">{siteContent.cardFooter}</p></div></div>
+          <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-[2rem] border-[8px] border-[#07337d] bg-[#07337d] shadow-[0_25px_70px_rgba(5,56,132,0.25)] lg:max-w-md">
+            <Image src="/headshot.png" alt={siteContent.founderPhotoAlt} width={1254} height={1254} priority sizes="(max-width: 1024px) 100vw, 448px" className="aspect-square h-auto w-full object-cover" />
+          </div>
         </div>
       </section>
 
-      <section id="challenge" className="relative z-10 border-y border-[#e4edf6] bg-white px-6 py-24 lg:px-10 lg:py-28"><div className="mx-auto max-w-[1080px]"><div className="mb-14 max-w-2xl"><p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#00aec8]">{siteContent.challengeLabel}</p><h2 className="mt-5 text-4xl font-bold leading-[1.08] tracking-[-0.045em] text-[#0c3476] sm:text-5xl">{siteContent.challengeTitle}</h2><p className="mt-5 max-w-xl text-base leading-7 text-[#6885ad]">{siteContent.challengeDescription}</p></div><div id="how-it-works" className="grid gap-4 md:grid-cols-3">{siteContent.steps.map((step) => <Step key={step.number} {...step} />)}</div></div></section>
+      <section id="challenge" className="relative z-10 border-y border-[#e4edf6] bg-white px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#00aec8]">{siteContent.challengeLabel}</p>
+            <h2 className="mt-5 text-4xl font-bold leading-[1.08] tracking-[-0.045em] text-[#0c3476] sm:text-5xl">{siteContent.challengeTitle}</h2>
+            <p className="mt-5 max-w-xl text-base leading-7 text-[#6885ad]">{siteContent.challengeDescription}</p>
+          </div>
+          <div id="how-it-works" className="grid divide-y divide-[#d5e5f3] border-y border-[#d5e5f3] md:grid-cols-3 md:divide-x md:divide-y-0">
+            {siteContent.steps.map((step) => <Step key={step.number} {...step} />)}
+          </div>
+        </div>
+      </section>
 
       <section id="join" className="relative z-10 mx-auto max-w-6xl px-6 py-20 lg:px-10">
         <div className="overflow-hidden rounded-[2rem] bg-[#07337d] px-7 py-10 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16 lg:py-14">
@@ -117,5 +125,5 @@ export default function Page() {
 }
 
 function Step({ number, title, copy }: { number: string; title: string; copy: string }) {
-  return <article className="min-h-[338px] rounded-[28px] border border-[#d5e5f3] bg-[#f8fbff] px-10 py-11 transition-colors hover:bg-[#f3f9ff] md:px-10"><span className="text-[17px] font-bold tracking-[0.2em] text-[#00b5cc]">{number}</span><h3 className="mt-14 text-[32px] font-bold leading-none tracking-[-0.045em] text-[#0c3476]">{title}</h3><p className="mt-7 max-w-[250px] text-[19px] leading-[1.95] text-[#6684ad]">{copy}</p></article>
+  return <article className="grid grid-cols-[2.5rem_1fr] items-start gap-x-4 py-5 md:block md:px-6 md:py-7 first:md:pl-0 last:md:pr-0"><span className="row-span-2 text-sm font-bold tracking-[0.16em] text-[#00b5cc] md:text-base">{number}</span><h3 className="text-xl font-bold leading-tight text-[#0c3476] md:mt-5 md:text-2xl">{title}</h3><p className="col-start-2 mt-1 max-w-none text-sm leading-6 text-[#6684ad] md:mt-3 md:text-base md:leading-7">{copy}</p></article>
 }

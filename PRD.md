@@ -41,7 +41,7 @@ Rule: if there is no real content for a section, that section does not appear.
 Simple words. Short lines. Like a person talking. Honest about the bad parts. No hype. No big promises.
 
 ## Look
-Bright blue and cyan, white text, a heavy rounded font, the "30" in cyan, a tilted dark blue panel for the main promise. No stock photos. No icon grids. No 3D LinkedIn logo.
+Bright blue and cyan, white text, a heavy rounded font, the Remote30 icon beside a one-word wordmark, and the founder portrait in the hero. Keep the challenge steps compact, without a row of cards. No stock photos. No icon grids. No 3D LinkedIn logo.
 
 ## Privacy
 The sign-up list is private. It is used only to run Remote30. It is never sold or shown on the site.

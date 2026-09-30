@@ -15,6 +15,7 @@ The site does not send email. It cannot check whether an inbox is active. The vi
 - The plan: PRD.md
 - Rules for the AI helper: AGENTS.md
 - The sign-up list: in Supabase, in a table called `remote30_waitlist`. Only you can read it.
+- Brand images: `public/headshot.png` is the founder portrait, `public/remote30.png` is the header icon, and `public/favicon.ico` is the browser icon.
 
 ## How to change something
 - To change words, the start date, the number of spots or the WhatsApp link: edit site-content.ts and publish again.
