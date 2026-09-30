@@ -28,6 +28,9 @@ Open Supabase, then the `remote30_waitlist` table. In Version 2 there is also a 
 ## Stop duplicate email entries
 Run `supabase/migrations/20260930120000_unique_waitlist_email.sql` in the Supabase SQL Editor. It adds a case-insensitive unique index, so the same email cannot be added twice, including with different capital letters. If it reports existing duplicates, remove the duplicate rows in Supabase and run the SQL again.
 
+## Accept common email formats
+Run `supabase/migrations/20260930160000_fix_waitlist_email_format.sql` in the Supabase SQL Editor to replace the waitlist email check. It accepts common addresses with dots and plus tags, while still rejecting malformed addresses. The constraint is added without checking old rows; new inserts and updates are checked right away.
+
 ## How to publish a change
 Save your change, then push it. Vercel publishes it by itself. Always look at the preview on your phone first.
 

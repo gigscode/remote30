@@ -45,7 +45,7 @@ Bright blue and cyan, white text, a heavy rounded font, the Remote30 icon beside
 
 ## Privacy
 The sign-up list is private. It is used only to run Remote30. It is never sold or shown on the site.
-The site does not send email, so it cannot confirm whether an inbox is active. It checks the address format and prevents duplicate entries.
+The site does not send email, so it cannot confirm whether an inbox is active. The form and database check address format, and the database prevents duplicate entries.
 
 ## Open questions
 - What exactly is in the paid done-for-you package, and how many days does it take?
