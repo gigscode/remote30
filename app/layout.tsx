@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Remote30 — Your First 3 International Clients',
-  description: 'A 30-day field challenge for remote freelancers ready to land their first international paying clients.',
+  title: 'Remote30 — Build Your Path to International Work',
+  description: 'A free 30-day challenge for Nigerian designers and developers who want international clients.',
   generator: 'v0.app',
   icons: {
     icon: [
